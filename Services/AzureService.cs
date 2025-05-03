@@ -1,4 +1,5 @@
-﻿using Microsoft.SemanticKernel.ChatCompletion;
+﻿using Markdig;
+using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel;
 
@@ -28,7 +29,10 @@ namespace chatbot_kernel_memory.Services
                 executionSettings: openAIPromptExecutionSettings,
                 kernel: kernel);
 
-            return result.Content ?? string.Empty;
+            if (!string.IsNullOrEmpty(result.Content))
+                return Markdown.ToHtml(result.Content);
+
+            return string.Empty;
         }
     }
 }
