@@ -2,6 +2,6 @@
 {
     public interface IAzureService
     {
-        Task<string> AskQuestion(string modelId, string prompt);
+        Task<string> AskQuestion(string prompt);
     }
 }

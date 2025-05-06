@@ -13,10 +13,10 @@ namespace chatbot_kernel_memory.Services
             _appSettings = appSettings.Value;
         }
 
-        public Kernel GetKernel(string modelId)
+        public Kernel GetKernel()
         {
             // Create a kernel with Azure OpenAI chat completion
-            var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(modelId, _appSettings.Endpoint, _appSettings.ApiKey);
+            var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(_appSettings.ChatCompletionModelId, _appSettings.Endpoint, _appSettings.ApiKey);
 
             // Add enterprise components
             builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));

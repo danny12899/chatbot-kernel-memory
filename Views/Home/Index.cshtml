@@ -22,7 +22,7 @@
         userInput.value = '';
 
         // Send to backend (replace with actual endpoint)
-        const response = await fetch('/api/azure/AskQuestion?modelId=gpt-4o&prompt=' + message, {
+        const response = await fetch('/api/azure/AskQuestion?prompt=' + message, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });

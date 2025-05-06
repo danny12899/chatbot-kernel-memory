@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped<IKernelService, KernelService>();
+builder.Services.AddScoped<IKernelMemoryService, KernelMemoryService>();
 
 
 var app = builder.Build();

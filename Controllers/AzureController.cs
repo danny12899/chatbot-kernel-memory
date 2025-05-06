@@ -15,9 +15,9 @@ namespace chatbot_kernel_memory.Controllers
 
         [HttpGet]
         [Route("AskQuestion")]
-        public async Task<IActionResult> AskQuestion(string modelId, string prompt)
+        public async Task<IActionResult> AskQuestion(string prompt)
         {
-            var response = await _azureService.AskQuestion(modelId, prompt);
+            var response = await _azureService.AskQuestion(prompt);
             return Ok(response);
         }
     }

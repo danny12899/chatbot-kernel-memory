@@ -4,12 +4,8 @@
     {
         public string Endpoint { get; set; } = string.Empty;
         public string ApiKey { get; set; } = string.Empty;
-        public List<Model> Models { get; set; } = new List<Model>();
-    }
-
-    public class Model
-    {
-        public string ModelId { get; set; } = string.Empty;
-
+        public string ChatCompletionModelId { get; set; } = string.Empty;
+        public string EmbeddingModelId { get; set; } = string.Empty;
+        public string ConnectionString { get; set; } = string.Empty;
     }
 }

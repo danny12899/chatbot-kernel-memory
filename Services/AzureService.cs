@@ -2,21 +2,25 @@
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel;
+using chatbot_kernel_memory.Util;
+using Microsoft.Extensions.Options;
 
 namespace chatbot_kernel_memory.Services
 {
     public class AzureService : IAzureService
     {
+        private readonly AppSettings _appSettings;
         private readonly IKernelService _kernelService;
 
-        public AzureService(IKernelService kernelService)
+        public AzureService(IOptions<AppSettings> appSettings, IKernelService kernelService)
         {
+            _appSettings = appSettings.Value;
             _kernelService = kernelService;
         }
 
-        public async Task<string> AskQuestion(string modelId, string prompt)
+        public async Task<string> AskQuestion(string prompt)
         {
-            var kernel = _kernelService.GetKernel(modelId);
+            var kernel = _kernelService.GetKernel();
             var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
             OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
