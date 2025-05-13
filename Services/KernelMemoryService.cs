@@ -33,7 +33,13 @@ namespace chatbot_kernel_memory.Services
                     Auth = AzureOpenAIConfig.AuthTypes.APIKey
                 })
                 .WithSqlServerMemoryDb(_appSettings.ConnectionString)
-                .Build();
+                .Build(new KernelMemoryBuilderBuildOptions { AllowMixingVolatileAndPersistentData = true });
+        }
+
+        public async Task<string> ImportDocumentAsync(Stream stream, string fileName)
+        {
+            var kernel = GetKernelMemory();
+            return await kernel.ImportDocumentAsync(stream, fileName);
         }
     }
 }

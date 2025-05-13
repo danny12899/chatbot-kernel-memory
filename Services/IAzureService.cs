@@ -3,5 +3,6 @@
     public interface IAzureService
     {
         Task<string> AskQuestion(string prompt);
+        Task<string> ImportDocumentAsync(Stream stream, string fileName);
     }
 }

@@ -62,3 +62,22 @@ body {
         .input-area button:hover {
             background: #2980b9;
         }
+
+#fileInput {
+    display: none;
+}
+
+label[for="fileInput"] {
+    margin-left: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+    label[for="fileInput"]:hover {
+        background-color: #218838;
+    }

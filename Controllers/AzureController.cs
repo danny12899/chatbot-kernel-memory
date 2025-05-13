@@ -13,11 +13,21 @@ namespace chatbot_kernel_memory.Controllers
             _azureService = azureService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("AskQuestion")]
-        public async Task<IActionResult> AskQuestion(string prompt)
+        public async Task<IActionResult> AskQuestion([FromForm] string prompt, [FromForm] IFormFile file)
         {
+            if (file != null)
+            {
+                using (var fileStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(fileStream);
+                    var id = await _azureService.ImportDocumentAsync(fileStream, file.FileName);
+                }
+            }
+
             var response = await _azureService.AskQuestion(prompt);
+
             return Ok(response);
         }
     }
