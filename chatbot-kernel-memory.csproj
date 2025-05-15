@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.98.250324.1" />
     <PackageReference Include="Microsoft.KernelMemory.SemanticKernelPlugin" Version="0.98.250324.1" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.48.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.50.0" />
   </ItemGroup>
 
 </Project>

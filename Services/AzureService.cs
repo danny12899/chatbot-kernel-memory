@@ -4,7 +4,7 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel;
 using chatbot_kernel_memory.Util;
 using Microsoft.Extensions.Options;
-using Microsoft.KernelMemory;
+using chatbot_kernel_memory.Plugins;
 
 namespace chatbot_kernel_memory.Services
 {
@@ -23,11 +23,10 @@ namespace chatbot_kernel_memory.Services
             _kernelMemoryService = kernelMemoryService;
         }
 
-        public async Task<string> AskQuestion(string prompt)
+        public async Task<string> AskQuestion(string prompt, string documentId)
         {
             var kernel = _kernelService.GetKernel();
             var km = _kernelMemoryService.GetKernelMemory();
-            var memoryPlugin = kernel.ImportPluginFromObject(new MemoryPlugin(km, waitForIngestionToComplete: true), "memory");
 
             var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -35,6 +34,13 @@ namespace chatbot_kernel_memory.Services
             {
                 FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
             };
+
+            if (!string.IsNullOrEmpty(documentId))
+            {
+                var documentSearchPlugin = new DocumentSearchPlugin(km, documentId);
+                kernel.ImportPluginFromObject(documentSearchPlugin, "memory");
+                prompt += ". Search your memory. {{memory.Ask}}";
+            }
 
             var result = await chatCompletionService.GetChatMessageContentAsync(
                 prompt,
